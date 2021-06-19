@@ -51,6 +51,7 @@ class HiveAuthHelper {
       String iat) {
     acessToken = token;
     username = name;
+    idFranqueado = idFranqueado;
     //this create a expire time
     var expireAt = DateTime.now().millisecondsSinceEpoch + Duration(minutes: 30).inMilliseconds;
     _authBox.put(ACCESS_TOKEN, acessToken!);
