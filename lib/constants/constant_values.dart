@@ -11,3 +11,12 @@ const PASSWORD_LOGIN = 'senha';
 const APPLIICATION_JSON = 'application/json';
 const SERVER_ERROR_MESSAGE = 'message';
 const SERVER_ACCESS_TOKEN = 'token';
+
+const ID_FUNCIONARIO = 'idfuncionario';
+const DESCRICAO_FUNCIONARIO = 'descricaofuncionario';
+const EMAIL = 'email';
+const ID_FRANQUEADO = 'idfranqueado';
+const DESCRICAO_FRANQUEADO = 'descricaofranqueado';
+const NBF = 'nbf';
+const EXP = 'exp';
+const IAT = 'iat';

@@ -44,7 +44,8 @@ dependencies:
   dropdown_below: ^0.0.8
   select_form_field: ^2.0.0
   menu_button: ^1.4.2+1
-  
+  jaguar_jwt: ^3.0.0
+  jwt_decoder: ^2.0.1
   
   
 

@@ -16,7 +16,6 @@ class FuncionarioHelper {
   /// é usado tambem ao pesquisar e ao reordenar
   static Future<FuncionarioQueryModel?> getFuncionarios({
     int pageSize = 5,
-    int idFranqueado = 1,
     required int page,
     String ordernar = 'descricaoFuncionario',
     String direcao = 'asc',
@@ -24,6 +23,7 @@ class FuncionarioHelper {
     String? descricao,
     String? situacao,
   }) async {
+    var idFranqueado = int.parse(HiveAuthHelper.idFranqueado!);
     //url da requisição é setada aqui com os parametros definidos na chamada da função
     String url =
         '$BASE_API_URL/back/api/funcionario/pesquisar?page=$page&pageSize=$pageSize${_searchParams(id, descricao, situacao)}'
@@ -53,8 +53,9 @@ class FuncionarioHelper {
     var match = regex.allMatches(funcionario.dataCadastro).elementAt(0);
     //essa já o datetime correto para ser usado no seu banco de dados
     String formatedData = '${match.group(1)}-${match.group(2)}-${match.group(3)}';
+    var idFranqueado = int.parse(HiveAuthHelper.idFranqueado!);
     var data = {
-      "idFuncionario": funcionario.idFuncionario,
+      "idFuncionario": idFranqueado,
       "idFranqueado": 1,
       "idSituacao": funcionario.idSituacao,
       "dataCadastro": formatedData,
@@ -91,7 +92,8 @@ class FuncionarioHelper {
   }
 
   ///obtem a senha de um usuario
-  static Future<String?> getfuncionarioPassword(int idFuncionario, idFranqueado) async {
+  static Future<String?> getfuncionarioPassword(int idFuncionario) async {
+    var idFranqueado = int.parse(HiveAuthHelper.idFranqueado!);
     String url =
         '$BASE_API_URL//back/api/funcionario/obter?id=$idFuncionario&idFranqueado=$idFranqueado';
 
@@ -108,7 +110,9 @@ class FuncionarioHelper {
 
   /// deleta o funcionario na tabela funcionarios
   static Future<bool> deletFuncionario(int funcionarioId) async {
-    var url = '$BASE_API_URL/back/api/funcionario/excluir?id=$funcionarioId&idFranqueado=1';
+    var idFranqueado = int.parse(HiveAuthHelper.idFranqueado!);
+    var url =
+        '$BASE_API_URL/back/api/funcionario/excluir?id=$funcionarioId&idFranqueado=$idFranqueado';
 
     var request = await http.delete(
         Uri.parse(

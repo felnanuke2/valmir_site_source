@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:beamer/beamer.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
+import 'package:jaguar_jwt/jaguar_jwt.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:vlalmir_workana_screens/constants/constant_values.dart';
 import 'package:vlalmir_workana_screens/modules/auth/hive/hive_auth_helper.dart';
 
@@ -24,7 +26,29 @@ class LoginHelper {
       // o codigo for 200 o token é armazenado e o usuario é direcionado para a tela dashboard
       var map = jsonDecode(request.body);
       String token = map[SERVER_ACCESS_TOKEN];
-      await HiveAuthHelper.setAcessToken(token, user);
+
+      var decoded = JwtDecoder.decode(token);
+      var email = decoded[EMAIL].toString();
+      var idFuncionario = decoded[ID_FUNCIONARIO].toString();
+      var idFranqueado = decoded[ID_FRANQUEADO].toString();
+      var descricaoFranq = decoded[DESCRICAO_FRANQUEADO].toString();
+      var descricaoFuncionario = decoded[DESCRICAO_FUNCIONARIO].toString();
+      var nbf = decoded[NBF].toString();
+      var exp = decoded[EXP].toString();
+      var iat = decoded[IAT].toString();
+
+      await HiveAuthHelper.setAcessToken(
+        token,
+        user,
+        idFuncionario,
+        descricaoFuncionario,
+        email,
+        idFranqueado,
+        descricaoFranq,
+        nbf,
+        exp,
+        iat,
+      );
       //deve retornar true para redirecionar a pagina
       return true;
     }

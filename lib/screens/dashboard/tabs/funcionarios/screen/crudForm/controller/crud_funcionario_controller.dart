@@ -58,7 +58,7 @@ class CrudFuncionarioController {
   }
 
   Future<String?> getPassword(int idFuncionario, {int idFranqueado = 1}) async {
-    var result = await FuncionarioHelper.getfuncionarioPassword(idFuncionario, idFranqueado);
+    var result = await FuncionarioHelper.getfuncionarioPassword(idFuncionario);
     return result;
   }
 
